@@ -20,7 +20,8 @@ import java.io.FileReader;
 public class GUI extends JFrame implements ActionListener {
     TestInteger testInt = new TestInteger();
     BTreePlus<Integer> bInt;
-    private JButton buttonClean, buttonRemove, buttonLoad, buttonSave, buttonAddMany, buttonAddItem, buttonRefresh,addFile;
+    private JButton buttonClean, buttonRemove, buttonLoad, buttonSave, buttonAddMany, buttonAddItem, buttonRefresh,
+            addFile;
     private JTextField txtNbreItem, txtNbreSpecificItem, txtU, txtFile, removeSpecific;
     private final JTree tree = new JTree();
 
@@ -28,8 +29,9 @@ public class GUI extends JFrame implements ActionListener {
     private static final String delimiter = ";";
     // Le nom du fichier
     private static final String dataFileName = "data.csv";
-    // Personnaliser ici les noms des colonnes que vous souhaitez utiliser pour la base de l'index
-    private static final String[] indexColumnList = {"civilite","nom","prenom"};
+    // Personnaliser ici les noms des colonnes que vous souhaitez utiliser pour la
+    // base de l'index
+    private static final String[] indexColumnList = { "civilite", "nom", "prenom" };
 
     public GUI() {
         super();
@@ -63,7 +65,9 @@ public class GUI extends JFrame implements ActionListener {
                 for (int i = 0; i < Integer.parseInt(txtNbreItem.getText()); i++) {
                     int valeur = (int) (Math.random() * 10 * Integer.parseInt(txtNbreItem.getText()));
                     boolean done = bInt.addValeur(valeur);
-                    /* On pourrait forcer l'ajout mais on risque alors de tomber dans une boucle infinie sans "r?gle" faisant sens pour en sortir
+                    /*
+                     * On pourrait forcer l'ajout mais on risque alors de tomber dans une boucle
+                     * infinie sans "r?gle" faisant sens pour en sortir
                      * 
                      * while (!done) { valeur =(int) (Math.random() * 10 *
                      * Integer.parseInt(txtNbreItem.getText())); done = bInt.addValeur(valeur); }
@@ -82,28 +86,36 @@ public class GUI extends JFrame implements ActionListener {
                 // Appelée qd on appuie sur le bouton pour charger un fichier
                 // Récupère les données du CSV
                 List<List<String>> data = loadData(dataFileName, delimiter);
-                // On note les index dans le tableau de données des colonnes qui nous interessent
+                // On note les index dans le tableau de données des colonnes qui nous
+                // interessent
                 List<Integer> indexIndexes = new ArrayList<>();
-                for (String index : indexColumnList) {
-                    for (int i = 0; i < data.get(0).size(); i++) { // 19 colonnes dans data
-                        if (index.equalsIgnoreCase(data.get(0).get(i))) // on recupere juste le numero des colonnes qui nous interesse
-                            indexIndexes.add(i);
-                    }
+                for (int i = 0; i < data.get(0).size(); i++) { 
+                    indexIndexes.add(i);
                 }
+
+                // List<Integer> indexIndexes = new ArrayList<>();
+                // for (String index : indexColumnList) {
+                // for (int i = 0; i < data.get(0).size(); i++) { // 19 colonnes dans data
+                // if (index.equalsIgnoreCase(data.get(0).get(i))) // on recupere juste le
+                // numero des colonnes qui nous interesse
+                // indexIndexes.add(i);
+                // }
+                // }
                 // Si le tableau d'index est vide, on arrête tout, on ne pourra pas indexer
-                if (indexIndexes.isEmpty()) {
-                    System.out.println("Aucun index trouvé dans le fichier, abord mission !");
-                    System.exit(1);
-                }
-                // On retire la première ligne qui contien les colonnes car nous n'en avons plus besoin
+                // if (indexIndexes.isEmpty()) {
+                // System.out.println("Aucun index trouvé dans le fichier, abord mission !");
+                // System.exit(1);
+                // }
+                // On retire la première ligne qui contien les colonnes car nous n'en avons plus
+                // besoin
                 data.remove(0);
 
                 // System.out.println(data);
                 System.out.println(data.size());
 
                 // for (List<String> line : data) {
-                //     int valeur = ;
-                //     boolean done = bInt.addValeur(valeur);
+                // int valeur = ;
+                // boolean done = bInt.addValeur(valeur);
                 // }
             }
         }

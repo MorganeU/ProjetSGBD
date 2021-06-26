@@ -1,16 +1,20 @@
 package fr.miage.fsgbd;
 
-
 public class Main {
+	// Le délimiteur à utiliser pour séparer les champs
+    private static final String delimiter = ";";
+    // Le nom du fichier
+    private static final String dataFileName = "data.csv";
+
     public static void main(String args[]) {
         javax.swing.SwingUtilities.invokeLater(new Runnable() {
             public void run() {
-                //On cr�e une nouvelle instance de notre JDialog
+                //On cr�e une nouvelle instance de notre JDialog
                 GUI fenetre = new GUI();
                 fenetre.setVisible(true);
             }
         });
-
+		
 		/*
 		TestInteger testInt = new TestInteger();
 		fr.miage.fsgbd.BTreePlus<Integer> bInt = new fr.miage.fsgbd.BTreePlus<Integer>(2, 4, testInt);
@@ -33,5 +37,7 @@ public class Main {
 		Noeud<String> noeud1 = new Noeud<String>(2, 5,test, null);
 		Noeud<String> noeud2 = new Noeud<String>(2, 5,test, null);
 		*/
+		// Charge les données à partir d'un fichier CSV
+		
     }
 }

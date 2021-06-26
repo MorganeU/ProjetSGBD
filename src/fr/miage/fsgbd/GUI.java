@@ -14,7 +14,7 @@ import java.awt.event.ActionListener;
 public class GUI extends JFrame implements ActionListener {
     TestInteger testInt = new TestInteger();
     BTreePlus<Integer> bInt;
-    private JButton buttonClean, buttonRemove, buttonLoad, buttonSave, buttonAddMany, buttonAddItem, buttonRefresh;
+    private JButton buttonClean, buttonRemove, buttonLoad, buttonSave, buttonAddMany, buttonAddItem, buttonRefresh, addFile;
     private JTextField txtNbreItem, txtNbreSpecificItem, txtU, txtFile, removeSpecific;
     private final JTree tree = new JTree();
 
@@ -72,6 +72,10 @@ public class GUI extends JFrame implements ActionListener {
 
             } else if (e.getSource() == buttonRemove) {
                 bInt.removeValeur(Integer.parseInt(removeSpecific.getText()));
+
+            } else if (e.getSource() == addFile) { 
+                // fct pour ajouter un fichier, appelée qd on appuie sur le bouton pour charger un fichier
+
             }
         }
 
@@ -216,6 +220,15 @@ public class GUI extends JFrame implements ActionListener {
         c.weightx = 1;
         c.gridwidth = 2;
         pane1.add(buttonRefresh, c);
+
+        // pour ajouter un bouton pour importer un fichier
+        addFile = new JButton("Charger un fichier");
+        c.gridx = 0;
+        c.gridy = 7;
+        c.weightx = 1;
+        c.gridwidth = 1;
+        pane1.add(addFile, c);
+
 
         c.fill = GridBagConstraints.HORIZONTAL;
         c.ipady = 400;       //reset to default

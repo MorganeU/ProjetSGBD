@@ -2,14 +2,12 @@ package fr.miage.fsgbd;
 
 import java.util.ArrayList;
 
-
 /*
  * Classe de gestion des noeuds du b+Arbre
  * @author LAUGIER Vincent; COFFRE Jean-Denis
  * @author Galli Gregory, Mopolo Moke Gabriel
  */
 public class Noeud<Type> implements java.io.Serializable {
-
 
     // Collection des Noeuds enfants du noeud courant
     public ArrayList<Noeud<Type>> fils = new ArrayList<Noeud<Type>>();
@@ -526,7 +524,6 @@ public class Noeud<Type> implements java.io.Serializable {
             } else // Si le nombre de clefs dans le noeud n'est pas au max, on ajoute simplement la clef au noeud courant
                 noeud.insert(nouvelleValeur);
         }
-
         return racine;
     }
 }

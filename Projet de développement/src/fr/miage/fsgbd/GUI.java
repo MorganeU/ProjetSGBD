@@ -33,8 +33,17 @@ public class GUI extends JFrame implements ActionListener {
     List<List<String>> data = loadData(dataFileName, delimiter);
 
     public List<List<String>> getData() {
+        // On retire la première ligne qui contient les colonnes 
+        data.remove(0);
         return data;    
     }
+
+    boolean isDataImport = false;
+
+    public boolean getDataBeenImported() {
+        return isDataImport;    
+    }
+
 
     public GUI() {
         super();
@@ -87,12 +96,15 @@ public class GUI extends JFrame implements ActionListener {
 
             } else if (e.getSource() == addFile) {
                 // Appelée qd on appuie sur le bouton pour charger un fichier
+                // On retire la première ligne qui contient les colonnes 
+                data.remove(0);
                 // On créé les index et on les met dans le B arbre
                 List<Integer> index = new ArrayList<>();
                 for (int i = 0; i < data.size(); i++) { 
                     index.add(i);
                     boolean done = bInt.addValeur(i);
                 }
+                isDataImport=true;
             }
         }
 

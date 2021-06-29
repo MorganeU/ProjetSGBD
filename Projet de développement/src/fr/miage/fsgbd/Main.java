@@ -2,6 +2,8 @@ package fr.miage.fsgbd;
 
 import java.lang.reflect.Type;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import javax.swing.JTextField;
 
@@ -10,38 +12,48 @@ public class Main {
 	private static final String delimiter = ";";
 	// Le nom du fichier
 	private static final String dataFileName = "data.csv";
+	static GUI fenetre = new GUI();
 
 	public static void main(String args[]) {
 		javax.swing.SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
 				// On cr�e une nouvelle instance de notre JDialog
-				GUI fenetre = new GUI();
 				fenetre.setVisible(true);
 			}
 		});
 
-		
-		TestInteger testInt = new TestInteger();
-		JTextField txtU = new JTextField("4", 7);
-		BTreePlus<Integer> bInt = new BTreePlus<Integer>(Integer.parseInt(txtU.getText()), testInt);
-		int nbP = 5;
-		int nbS = 7;
+		Timer t = new Timer();
+		t.schedule(new TimerTask() {
+			public void run() {
+				System.out.println("");
+				System.out.println("Partie recherches :");
+				// fonctions de recherches lancées lorsque les données d'un fichier ont été
+				// importées
+				if (fenetre.getDataBeenImported()) {
+					TestInteger testInt = new TestInteger();
+					JTextField txtU = new JTextField("4", 7);
+					BTreePlus<Integer> bInt = new BTreePlus<Integer>(Integer.parseInt(txtU.getText()), testInt);
+					int nbP = 5;
+					int nbS = 120;
 
-		// PARCOURS DANS L'ARBRE
-		List<String> resPointeur = bInt.pointeursIndex(nbP);
-		if (resPointeur == null)
-			System.out.println("La clé numéro " + nbP + " n'a pas été trouvée");
-		else
-			System.out.println("La clé numéro " + nbP + " a été trouvée. La ligne associée est la suivante : " + resPointeur);
-		
-		// PARCOURS SEQUENTIEL
-		List<String> resSeq = bInt.parcoursSequentiel(nbS);
-		if (resSeq == null)
-			System.out.println("La clé numéro " + nbS + " n'a pas été trouvée");
-		else
-			System.out.println("La clé numéro " + nbS + " a été trouvée. La ligne associée est la suivante : " + resSeq);
+					// PARCOURS DANS L'ARBRE
+					List<String> resPointeur = bInt.pointeursIndex(nbP);
+					if (resPointeur == null)
+						System.out.println("La clé numéro " + nbP + " n'a pas été trouvée");
+					else
+						System.out.println("La clé numéro " + nbP
+								+ " a été trouvée. La ligne associée est la suivante : " + resPointeur);
 
-
+					// PARCOURS SEQUENTIEL
+					List<String> resSeq = bInt.parcoursSequentiel(nbS);
+					if (resSeq == null)
+						System.out.println("La clé numéro " + nbS + " n'a pas été trouvée");
+					else
+						System.out.println("La clé numéro " + nbS
+								+ " a été trouvée. La ligne associée est la suivante : " + resSeq);
+				}
+			}
+		}, 2000);
 
 		/*
 		 * TestInteger testInt = new TestInteger(); fr.miage.fsgbd.BTreePlus<Integer>

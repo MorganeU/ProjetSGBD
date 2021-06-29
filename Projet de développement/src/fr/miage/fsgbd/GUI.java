@@ -29,9 +29,12 @@ public class GUI extends JFrame implements ActionListener {
     private static final String delimiter = ";";
     // Le nom du fichier
     private static final String dataFileName = "data.csv";
-    // Personnaliser ici les noms des colonnes que vous souhaitez utiliser pour la
-    // base de l'index
-    private static final String[] indexColumnList = { "civilite", "nom", "prenom" };
+    // Récupère les données du CSV
+    List<List<String>> data = loadData(dataFileName, delimiter);
+
+    public List<List<String>> getData() {
+        return data;    
+    }
 
     public GUI() {
         super();
@@ -84,44 +87,12 @@ public class GUI extends JFrame implements ActionListener {
 
             } else if (e.getSource() == addFile) {
                 // Appelée qd on appuie sur le bouton pour charger un fichier
-                // Récupère les données du CSV
-                List<List<String>> data = loadData(dataFileName, delimiter);
-                // On note les index dans le tableau de données des colonnes qui nous interessent
+                // On créé les index et on les met dans le B arbre
                 List<Integer> index = new ArrayList<>();
                 for (int i = 0; i < data.size(); i++) { 
                     index.add(i);
                     boolean done = bInt.addValeur(i);
                 }
-
-
-                // for (int i = 0; i < data.get(0).size(); i++) {
-                //     data.get(i).get(0);
-                // }
-
-                // List<Integer> indexIndexes = new ArrayList<>();
-                // for (String index : indexColumnList) {
-                // for (int i = 0; i < data.get(0).size(); i++) { // 19 colonnes dans data
-                // if (index.equalsIgnoreCase(data.get(0).get(i))) // on recupere juste le
-                // numero des colonnes qui nous interesse
-                // indexIndexes.add(i);
-                // }
-                // }
-                // Si le tableau d'index est vide, on arrête tout, on ne pourra pas indexer
-                // if (indexIndexes.isEmpty()) {
-                // System.out.println("Aucun index trouvé dans le fichier, abord mission !");
-                // System.exit(1);
-                // }
-                // On retire la première ligne qui contien les colonnes car nous n'en avons plus
-                // besoin
-                // data.remove(0);
-
-                // System.out.println(data);
-                // System.out.println(data.size());
-
-                // for (List<String> line : data) {
-                // int valeur = ;
-                // boolean done = bInt.addValeur(valeur);
-                // }
             }
         }
 

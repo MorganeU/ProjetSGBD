@@ -86,12 +86,17 @@ public class GUI extends JFrame implements ActionListener {
                 // Appelée qd on appuie sur le bouton pour charger un fichier
                 // Récupère les données du CSV
                 List<List<String>> data = loadData(dataFileName, delimiter);
-                // On note les index dans le tableau de données des colonnes qui nous
-                // interessent
-                List<Integer> indexIndexes = new ArrayList<>();
-                for (int i = 0; i < data.get(0).size(); i++) { 
-                    indexIndexes.add(i);
+                // On note les index dans le tableau de données des colonnes qui nous interessent
+                List<Integer> index = new ArrayList<>();
+                for (int i = 0; i < data.size(); i++) { 
+                    index.add(i);
+                    boolean done = bInt.addValeur(i);
                 }
+
+
+                // for (int i = 0; i < data.get(0).size(); i++) {
+                //     data.get(i).get(0);
+                // }
 
                 // List<Integer> indexIndexes = new ArrayList<>();
                 // for (String index : indexColumnList) {
@@ -108,10 +113,10 @@ public class GUI extends JFrame implements ActionListener {
                 // }
                 // On retire la première ligne qui contien les colonnes car nous n'en avons plus
                 // besoin
-                data.remove(0);
+                // data.remove(0);
 
                 // System.out.println(data);
-                System.out.println(data.size());
+                // System.out.println(data.size());
 
                 // for (List<String> line : data) {
                 // int valeur = ;

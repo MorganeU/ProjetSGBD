@@ -10,7 +10,7 @@ import java.util.List;
  * @param <Type>
  */
 public class BTreePlus<Type> implements java.io.Serializable {
-    private Noeud<Type> racine;
+    Noeud<Type> racine;
 
     public BTreePlus(int u, Executable e) {
         racine = new Noeud<Type>(u, e, null);
@@ -61,46 +61,34 @@ public class BTreePlus<Type> implements java.io.Serializable {
         }
     }
 
-
-    
     GUI gui = new GUI();
     List<List<String>> data = gui.getData();
     // ArrayList<Noeud<Type>> fils = racine.getFils();
-    
+
     // se balader dans l'arbre et recuperer les index pour les associer à des
     // pointeurs
-    public List<String> pointeursIndex(Type index) {
+    public List<String> pointeursIndex(Type index, Noeud<Type> arbre) {
         // concept : parcourir l'arbre de la racine jusqu'aux feuilles, si clé trouvée
         // alors je renvoie les données
-        System.out.println("* Parcours de l'arbre");
         // vérifier dans l'arbre
         List<String> donnee = null;
-
-        if (racine.keys.contains(index)){
+        if (arbre.keys.contains(index)) {
             int i = (int) index;
             donnee = data.get(i);
+        } else {
+            for (Noeud<Type> f : arbre.fils) {
+                donnee = pointeursIndex(index, f);
+                if (donnee!=null){
+                    return donnee;
+                }
+            }
         }
-        else {
-            System.out.println(racine.keys);
-            // for (int j = 0; j <= fils.size(); j++){
-            //     if(fils.get(j).contient(index)!=null){
-            //         int i = (int) index;
-            //         donnee = data.get(i);
-            //     }
-            // }
-        }
-
-        // if (racine.contient(index) != null) { // PROBLEME
-        //     int i = (int) index;
-        //     donnee = data.get(i);
-        // }
         return donnee;
     }
 
     public List<String> parcoursSequentiel(int index) {
         // concept : parcourir le fichier data, si clé trouvée alors je renvoie les
         // données
-        System.out.println("* Parcours séquentiel");
         // passer d'une ligne à l'autre et verifier si ca correspond
         List<String> donnee = null;
         for (int i = 0; i <= data.size(); i++) {

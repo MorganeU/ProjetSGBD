@@ -24,10 +24,6 @@ public class Noeud<Type> implements java.io.Serializable {
     // Ordre de l'abre (u = nombre de cl�s maximum = 2m)
     private final int u, tailleMin;
 
-    public ArrayList<Noeud<Type>> getFils() {
-        return fils;    
-    }
-
     /* Constructeur de la classe noeud, qui permet l'ajout et la recherche d'�l�ment dans les branches
      * @param u Nombre de cl�s maximum du noeud
      * @param e Classe interfa�ant "Executable" et donc contenant une proc�dure de comparaison de <Type>

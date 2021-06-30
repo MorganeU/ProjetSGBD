@@ -33,17 +33,20 @@ public class GUI extends JFrame implements ActionListener {
     List<List<String>> data = loadData(dataFileName, delimiter);
 
     public List<List<String>> getData() {
-        // On retire la première ligne qui contient les colonnes 
+        // On retire la première ligne qui contient les colonnes
         data.remove(0);
-        return data;    
+        return data;
     }
 
     boolean isDataImport = false;
 
     public boolean getDataBeenImported() {
-        return isDataImport;    
+        return isDataImport;
     }
 
+    public Noeud<Integer> getArbre() {
+        return bInt.racine;
+    }
 
     public GUI() {
         super();
@@ -96,15 +99,37 @@ public class GUI extends JFrame implements ActionListener {
 
             } else if (e.getSource() == addFile) {
                 // Appelée qd on appuie sur le bouton pour charger un fichier
-                // On retire la première ligne qui contient les colonnes 
+                // On retire la première ligne qui contient les colonnes
                 data.remove(0);
                 // On créé les index et on les met dans le B arbre
                 List<Integer> index = new ArrayList<>();
-                for (int i = 0; i < data.size(); i++) { 
+                for (int i = 0; i < data.size(); i++) {
                     index.add(i);
                     boolean done = bInt.addValeur(i);
                 }
-                isDataImport=true;
+                isDataImport = true;
+
+                // PARCOURS DANS L'ARBRE
+                System.out.println("PARCOURS DANS L'ARBRE");
+                // Noeud<Integer> arbre = fenetre.getArbre();
+                int nbP = 300;
+                List<String> resPointeur = bInt.pointeursIndex(nbP, bInt.racine);
+                if (resPointeur == null)
+                    System.out.println("La clé numéro " + nbP + " n'a pas été trouvée");
+                else
+                    System.out.println("La clé numéro " + nbP + " a été trouvée. La ligne associée est la suivante : "
+                            + resPointeur);
+
+                // PARCOURS SEQUENTIEL
+                System.out.println("PARCOURS SEQUENTIEL");
+                int nbS=5;
+                List<String> resSeq = bInt.parcoursSequentiel(nbS);
+                if (resSeq == null)
+                    System.out.println("La clé numéro " + nbS + " n'a pas été trouvée");
+                else
+                    System.out.println(
+                            "La clé numéro " + nbS + " a été trouvée. La ligne associée est la suivante : " + resSeq);
+
             }
         }
 

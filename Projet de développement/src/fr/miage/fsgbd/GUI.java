@@ -104,7 +104,7 @@ public class GUI extends JFrame implements ActionListener {
 
                 // PARCOURS DANS L'ARBRE
                 System.out.println("PARCOURS DANS L'ARBRE");
-                int nbP = 300;
+                int nbP = 3;
                 List<String> resPointeur = bInt.pointeursIndex(nbP, bInt.racine);
                 if (resPointeur == null)
                     System.out.println("La clé numéro " + nbP + " n'a pas été trouvée");
@@ -114,7 +114,7 @@ public class GUI extends JFrame implements ActionListener {
 
                 // PARCOURS SEQUENTIEL
                 System.out.println("PARCOURS SEQUENTIEL");
-                int nbS = 300;
+                int nbS = 10;
                 List<String> resSeq = bInt.parcoursSequentiel(nbS);
                 if (resSeq == null)
                     System.out.println("La clé numéro " + nbS + " n'a pas été trouvée");

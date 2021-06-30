@@ -91,7 +91,7 @@ public class BTreePlus<Type> implements java.io.Serializable {
         // données
         // passer d'une ligne à l'autre et verifier si ca correspond
         List<String> donnee = null;
-        for (int i = 0; i <= data.size(); i++) {
+        for (int i = 0; i < data.size(); i++) {
             if (index == i) {
                 donnee = data.get(i);
             }

@@ -38,16 +38,6 @@ public class GUI extends JFrame implements ActionListener {
         return data;
     }
 
-    boolean isDataImport = false;
-
-    public boolean getDataBeenImported() {
-        return isDataImport;
-    }
-
-    public Noeud<Integer> getArbre() {
-        return bInt.racine;
-    }
-
     public GUI() {
         super();
         build();
@@ -107,11 +97,13 @@ public class GUI extends JFrame implements ActionListener {
                     index.add(i);
                     boolean done = bInt.addValeur(i);
                 }
-                isDataImport = true;
+
+                // PARTIE RECHERCHES
+                System.out.println("");
+                System.out.println("Partie recherches :");
 
                 // PARCOURS DANS L'ARBRE
                 System.out.println("PARCOURS DANS L'ARBRE");
-                // Noeud<Integer> arbre = fenetre.getArbre();
                 int nbP = 300;
                 List<String> resPointeur = bInt.pointeursIndex(nbP, bInt.racine);
                 if (resPointeur == null)
@@ -122,7 +114,7 @@ public class GUI extends JFrame implements ActionListener {
 
                 // PARCOURS SEQUENTIEL
                 System.out.println("PARCOURS SEQUENTIEL");
-                int nbS=5;
+                int nbS = 300;
                 List<String> resSeq = bInt.parcoursSequentiel(nbS);
                 if (resSeq == null)
                     System.out.println("La clé numéro " + nbS + " n'a pas été trouvée");
@@ -130,6 +122,8 @@ public class GUI extends JFrame implements ActionListener {
                     System.out.println(
                             "La clé numéro " + nbS + " a été trouvée. La ligne associée est la suivante : " + resSeq);
 
+                // STATISTIQUES
+                statistiques();
             }
         }
 
@@ -321,5 +315,112 @@ public class GUI extends JFrame implements ActionListener {
             e.printStackTrace();
         }
         return data;
+    }
+
+    public void statistiques() {
+        // 100 RECHERCHES
+        System.out.println("");
+        System.out.println("Temps de recherches :");
+        int min = 0;
+        int max = data.size() * 2;
+
+        // PARCOURS DANS L'ARBRE
+        long startArbre = System.nanoTime();
+        for (int i = 0; i < 100; i++) {
+            int cleArbre = min + (int) (Math.random() * ((max - min)));
+            List<String> arb = bInt.pointeursIndex(cleArbre, bInt.racine);
+        }
+        long endArbre = System.nanoTime();
+        long timeArbre = (endArbre - startArbre);
+        System.out.println(
+                "Pour 100 recherches, en utilisant un parcours dans l'arbre, on obtient un temps d'éxécution de : "
+                        + timeArbre / 1000000 + " millisecondes");
+
+        // PARCOURS SEQUENTIEL
+        long startSeq = System.nanoTime();
+        for (int i = 0; i < 100; i++) {
+            int cleSeq = min + (int) (Math.random() * ((max - min)));
+            List<String> seq = bInt.parcoursSequentiel(cleSeq);
+        }
+        long endSeq = System.nanoTime();
+        long timeSeq = (endSeq - startSeq);
+        System.out.println(
+                "Pour 100 recherches, en utilisant un parcours séquentiel, on obtient un temps d'éxécution de : "
+                        + timeSeq / 1000000 + " millisecondes");
+
+        // STATISTIQUES
+        System.out.println("");
+        System.out.println("Statistiques :");
+        // PARCOURS DANS L'ARBRE
+        double[] tempsArbre = new double[100];
+        for (int i = 0; i < 100; i++) {
+            double tempsStartArbre = System.nanoTime();
+            int cleArbre = min + (int) (Math.random() * ((max - min)));
+            List<String> arb = bInt.pointeursIndex(cleArbre, bInt.racine);
+            double tempsEndArbre = System.nanoTime();
+            tempsArbre[i] = tempsEndArbre - tempsStartArbre;
+        }
+        // PARCOURS SEQUENTIEL
+        double[] tempsSeq = new double[100];
+        for (int i = 0; i < 100; i++) {
+            double tempsStartSeq = System.nanoTime();
+            int cleSeq = min + (int) (Math.random() * ((max - min)));
+            List<String> seq = bInt.parcoursSequentiel(cleSeq);
+            double tempsEndSeq = System.nanoTime();
+            tempsSeq[i] = tempsEndSeq - tempsStartSeq;
+        }
+        // temps minimum
+        System.out.println("TEMPS MINIMUMS");
+        double minArbre = minimum(tempsArbre);
+        double minSeq = minimum(tempsSeq);
+        System.out.println(
+                "Le temps minimum pour une recherche dans l'arbre est de : " + minArbre / 1000000 + " millisecondes");
+        System.out.println(
+                "Le temps minimum pour une recherche séquentielle est de : " + minSeq / 1000000 + " millisecondes");
+        // temps maximum
+        System.out.println("TEMPS MAXIMUMS");
+        double maxArbre = maximum(tempsArbre);
+        double maxSeq = maximum(tempsSeq);
+        System.out.println(
+                "Le temps maximum pour une recherche dans l'arbre est de : " + maxArbre / 1000000 + " millisecondes");
+        System.out.println(
+                "Le temps maximum pour une recherche séquentielle est de : " + maxSeq / 1000000 + " millisecondes");
+        // temps moyen
+        System.out.println("TEMPS MOYENS");
+        double moyArbre = moyenne(tempsArbre);
+        double moySeq = moyenne(tempsSeq);
+        System.out.println(
+                "Le temps moyen pour une recherche dans l'arbre est de : " + moyArbre / 1000000 + " millisecondes");
+        System.out.println(
+                "Le temps moyen pour une recherche séquentielle est de : " + moySeq / 1000000 + " millisecondes");
+    }
+
+    public double minimum(double[] list) {
+        double min = list[0];
+        for (int i = 1; i < list.length; i++) {
+            if (list[i] < min) {
+                min = list[i];
+            }
+        }
+        return min;
+    }
+
+    public double maximum(double[] list) {
+        double max = list[0];
+        for (int i = 1; i < list.length; i++) {
+            if (list[i] > max) {
+                max = list[i];
+            }
+        }
+        return max;
+    }
+
+    public double moyenne(double[] list) {
+        double moy = 0;
+        for (int i = 1; i < list.length; i++) {
+            moy = moy + list[i];
+        }
+        moy = moy / list.length;
+        return moy;
     }
 }
